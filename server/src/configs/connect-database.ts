@@ -10,7 +10,7 @@ export default function () {
 
   return mongoose
     .connect(connectionString)
-    .then(() => console.log('Connected to database successful!!'))
+    .then(() => console.log('Connect to database successful!!'))
     .catch((e: any) => {
       console.log('e :>> ', e);
       console.log('Connected to database failed!!');

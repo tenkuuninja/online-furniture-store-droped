@@ -1,12 +1,15 @@
 import express from "express";
 import cors from "cors";
 import connectDB from "./configs/connect-database";
+import apiRoutes from "./routes/api";
 
 const app = express();
 
 connectDB();
 
 app.use(cors);
+
+app.use("/api", apiRoutes)
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

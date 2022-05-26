@@ -8,13 +8,13 @@ interface ICustomer {
 }
 
 interface IBillDeTail {
-  productId: Types.ObjectId;
+  product: Types.ObjectId;
   price: string;
   quantity: string;
 }
 
 interface IBill {
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
   total: number;
   customer: ICustomer;
   detail: [IBillDeTail];
@@ -23,9 +23,10 @@ interface IBill {
 }
 
 const billSchema = new Schema<IBill>({
-  userId: { 
+  user: { 
     type: Schema.Types.ObjectId, 
     required: false, 
+    ref: "users",
   },
   total: { 
     type: Number, 
@@ -50,9 +51,10 @@ const billSchema = new Schema<IBill>({
     },
   },
   detail: [{
-    productId: {
+    product: {
       type: Schema.Types.ObjectId, 
       required: true, 
+      ref: "products",
     },
     price: {
       type: Number, 

@@ -1,8 +1,9 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 interface IProduct {
-  cateId: Types.ObjectId;
+  category: Types.ObjectId;
   name: string;
+  slug: string;
   image: string;
   price: number;
   description: string;
@@ -10,11 +11,16 @@ interface IProduct {
 }
 
 const productSchema = new Schema<IProduct>({
-  cateId: { 
+  category: { 
     type: Schema.Types.ObjectId, 
     required: true, 
+    ref: "categories",
   },
   name: { 
+    type: String, 
+    required: true, 
+  },
+  slug: { 
     type: String, 
     required: true, 
   },

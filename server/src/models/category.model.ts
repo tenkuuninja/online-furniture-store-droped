@@ -2,7 +2,6 @@ import mongoose, { Schema, model, connect } from "mongoose";
 
 interface ICategory {
   name: string;
-  color: string;
   description: string;
   image: string;
 }
@@ -12,10 +11,6 @@ const categorySchema = new Schema<ICategory>({
     type: String, 
     required: true, 
     unique: true,
-  },
-  color: { 
-    type: String, 
-    required: true, 
   },
   description: { 
     type: String, 

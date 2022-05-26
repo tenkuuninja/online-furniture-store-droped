@@ -4,9 +4,9 @@ interface IUser {
   username: string;
   password: string;
   email: string;
-  phone?: string;
-  address?: string;
+  name: string;
   avatar?: string;
+  gender: string;
   role: string;
 }
 
@@ -25,11 +25,7 @@ const userSchema = new Schema<IUser>({
     required: true, 
     unique: true,
   },
-  phone: { 
-    type: String, 
-    required: false, 
-  },
-  address: { 
+  name: { 
     type: String, 
     required: false, 
   },
@@ -37,9 +33,15 @@ const userSchema = new Schema<IUser>({
     type: String, 
     required: false, 
   },
+  gender: { 
+    type: String, 
+    required: false, 
+    default: "M",
+  },
   role: { 
     type: String, 
-    required: true, 
+    required: true,
+    default: "user", 
   },
 }, {
   timestamps: { 

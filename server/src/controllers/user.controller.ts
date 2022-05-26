@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import bcrypt from "bcrypt";
 import User from "../models/user.model";
+import { SALT_ROUNDS } from "../configs/constant";
 
 class UserController {
   getListUser = async (req: Request, res: Response) => {
@@ -69,9 +71,12 @@ class UserController {
           .json({ msg: "username or email already exist!" });
       }
 
+      const salt = bcrypt.genSaltSync(SALT_ROUNDS);
+      const hashPassword = bcrypt.hashSync(req.body?.password, salt);
+
       const newUserData = {
         username: req.body?.username,
-        password: req.body?.password,
+        password: hashPassword,
         email: req.body?.email,
         name: req.body?.name,
         avatar: req.body?.avatar,
@@ -115,9 +120,13 @@ class UserController {
           .json({ msg: "username or email must not duplicate!" });
       }
 
+      
+      const salt = bcrypt.genSaltSync(SALT_ROUNDS);
+      const hashPassword = bcrypt.hashSync(req.body?.password, salt);
+
       const userData = {
         username: req.body?.username,
-        password: req.body?.password,
+        password: hashPassword,
         email: req.body?.email,
         name: req.body?.name,
         avatar: req.body?.avatar,

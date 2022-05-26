@@ -1,10 +1,18 @@
 import express from "express";
+import auth from "../controllers/auth.controller";
 import user from "../controllers/user.controller";
 import categories from "../controllers/category.controller";
 import product from "../controllers/product.controller";
 import bill from "../controllers/bill.controller";
+import { checkAuth, verifyRole } from "../middlewares/auth.middleware";
 
 const router = express.Router();
+
+router.use(checkAuth);
+
+router.post("/register", auth.register);
+router.post("/login", auth.loginWithPassword);
+router.post("/token", auth.checkToken);
 
 router.get("/users", user.getListUser);
 router.post("/users", user.createUser);

@@ -1,7 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 interface ICustomer {
-  name: number;
+  name: string;
   email: string;
   address: string;
   phone: string;
@@ -9,8 +9,8 @@ interface ICustomer {
 
 interface IBillDeTail {
   product: Types.ObjectId;
-  price: string;
-  quantity: string;
+  price: number;
+  quantity: number;
 }
 
 interface IBill {
@@ -68,6 +68,7 @@ const billSchema = new Schema<IBill>({
   status: { 
     type: String, 
     required: true, 
+    default: "pending",
   },
   paymentMethod: { 
     type: String, 

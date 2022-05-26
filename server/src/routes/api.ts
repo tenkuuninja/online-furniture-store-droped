@@ -2,6 +2,7 @@ import express from "express";
 import user from "../controllers/user.controller";
 import categories from "../controllers/category.controller";
 import product from "../controllers/product.controller";
+import bill from "../controllers/bill.controller";
 
 const router = express.Router();
 
@@ -22,5 +23,11 @@ router.post("/products", product.createProduct);
 router.get("/products/:id", product.getProduct);
 router.put("/products/:id", product.updateProduct);
 router.delete("/products/:id", product.deleteProduct);
+
+router.get("/bills", bill.getListBill);
+router.post("/bills", bill.createBill);
+router.get("/bills/:id", bill.getBill);
+router.put("/bills/:id", bill.updateBill);
+router.delete("/bills/:id", bill.deleteBill);
 
 export default router;

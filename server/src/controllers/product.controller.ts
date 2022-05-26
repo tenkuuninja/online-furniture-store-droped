@@ -74,9 +74,9 @@ class ProductController {
       let id = req.params.id;
 
       await Product.updateOne({ _id: id }, req.body);
-      const user = await Product.findOne({ _id: id }).populate("category");
+      const product = await Product.findOne({ _id: id }).populate("category");
 
-      res.json(user);
+      res.json(product);
     } catch (error) {
       console.log("ProductController.updateProduct error", error);
       res.status(500).send({ msg: "Error" });
@@ -87,9 +87,9 @@ class ProductController {
     try {
       let id = req.params.id;
 
-      const user = await Product.deleteOne({ _id: id });
+      const product = await Product.deleteOne({ _id: id });
 
-      res.json(!!user.deletedCount);
+      res.json(!!product.deletedCount);
     } catch (error) {
       console.log("ProductController.deleteProduct error", error);
       res.status(500).json(false);

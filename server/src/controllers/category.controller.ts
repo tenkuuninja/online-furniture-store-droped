@@ -32,7 +32,7 @@ class CategoryController {
       const count = await Category.count();
       
       res.json({
-        data: categories,
+        content: categories,
         page: +page,
         size: +size,
         total: count,
@@ -40,7 +40,7 @@ class CategoryController {
       });
     } catch (error) {
       console.log("CategoryController.getListCategory error", error);
-      res.status(500).json({ msg: "Error" });
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -52,7 +52,7 @@ class CategoryController {
       res.json(category);
     } catch (error) {
       console.log("CategoryController.getCategory error", error);
-      res.status(500).json();
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -63,7 +63,7 @@ class CategoryController {
       res.json(category);
     } catch (error) {
       console.log("CategoryController.createCategory error", error);
-      res.status(500).json({ msg: "Error" });
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -77,7 +77,7 @@ class CategoryController {
       res.json(category);
     } catch (error) {
       console.log("CategoryController.updateCategory error", error);
-      res.status(500).send({ msg: "Error" });
+      res.status(500).send({ errorMessage: "Error" });
     }
   };
 
@@ -90,7 +90,7 @@ class CategoryController {
       res.json(!!category.deletedCount);
     } catch (error) {
       console.log("CategoryController.deleteCategory error", error);
-      res.status(500).json(false);
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 }

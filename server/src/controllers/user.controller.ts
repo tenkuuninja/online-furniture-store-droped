@@ -34,7 +34,7 @@ class UserController {
       const count = await User.count();
       
       res.json({
-        data: users,
+        content: users,
         page: +page,
         size: +size,
         total: count,
@@ -42,7 +42,7 @@ class UserController {
       });
     } catch (error) {
       console.log("UserController.getListUser error", error);
-      res.status(500).json();
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -55,7 +55,7 @@ class UserController {
       res.json(user);
     } catch (error) {
       console.log("UserController.getUser error", error);
-      res.status(500).json();
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -88,7 +88,7 @@ class UserController {
       res.json(user);
     } catch (error) {
       console.log("UserController.createUser error", error);
-      res.status(500).json();
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -139,7 +139,7 @@ class UserController {
       res.json(user);
     } catch (error) {
       console.log("UserController.updateUser error", error);
-      res.status(500).send(error);
+      res.status(500).send({ errorMessage: "Error" });
     }
   };
 
@@ -152,7 +152,7 @@ class UserController {
       res.json(!!user.deletedCount);
     } catch (error) {
       console.log("UserController.deleteUser error", error);
-      res.status(500).json(false);
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 }

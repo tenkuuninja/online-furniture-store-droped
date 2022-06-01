@@ -33,7 +33,7 @@ class ProductController {
       const count = await Product.count();
       
       res.json({
-        data: products,
+        content: products,
         page: +page,
         size: +size,
         total: count,
@@ -41,7 +41,7 @@ class ProductController {
       });
     } catch (error) {
       console.log("ProductController.getListUser error", error);
-      res.status(500).json({ msg: "Error" });
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -65,7 +65,7 @@ class ProductController {
       res.json(product);
     } catch (error) {
       console.log("ProductController.createProduct error", error);
-      res.status(500).json({ msg: "Error" });
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -79,7 +79,7 @@ class ProductController {
       res.json(product);
     } catch (error) {
       console.log("ProductController.updateProduct error", error);
-      res.status(500).send({ msg: "Error" });
+      res.status(500).send({ errorMessage: "Error" });
     }
   };
 
@@ -92,7 +92,7 @@ class ProductController {
       res.json(!!product.deletedCount);
     } catch (error) {
       console.log("ProductController.deleteProduct error", error);
-      res.status(500).json(false);
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 }

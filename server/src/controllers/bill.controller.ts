@@ -40,7 +40,7 @@ class BillController {
       const count = await Bill.count();
 
       res.json({
-        data: bills,
+        content: bills,
         page: +page,
         size: +size,
         total: count,
@@ -48,7 +48,7 @@ class BillController {
       });
     } catch (error) {
       console.log("BillController.getListBill error", error);
-      res.status(500).json({ msg: "Error" });
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -63,7 +63,7 @@ class BillController {
       res.json(bill);
     } catch (error) {
       console.log("BillController.getBill error", error);
-      res.status(500).json();
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -74,7 +74,7 @@ class BillController {
       res.json(bill);
     } catch (error) {
       console.log("BillController.createBill error", error);
-      res.status(500).json({ msg: "Error" });
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 
@@ -89,7 +89,7 @@ class BillController {
       res.json(bill);
     } catch (error) {
       console.log("BillController.updateBill error", error);
-      res.status(500).send({ msg: "Error" });
+      res.status(500).send({ errorMessage: "Error" });
     }
   };
 
@@ -102,7 +102,7 @@ class BillController {
       res.json(!!bill.deletedCount);
     } catch (error) {
       console.log("BillController.deleteBill error", error);
-      res.status(500).json(false);
+      res.status(500).json({ errorMessage: "Error" });
     }
   };
 }

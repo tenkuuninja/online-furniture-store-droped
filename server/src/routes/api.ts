@@ -1,10 +1,13 @@
 import express from "express";
+import multer from "multer";
 import auth from "../controllers/auth.controller";
 import user from "../controllers/user.controller";
 import categories from "../controllers/category.controller";
 import product from "../controllers/product.controller";
 import bill from "../controllers/bill.controller";
+import image from "../controllers/image.controller";
 import { checkAuth, verifyRole } from "../middlewares/auth.middleware";
+import { imageStore } from "../configs/multer.config";
 
 const router = express.Router();
 
@@ -13,6 +16,12 @@ router.use(checkAuth);
 router.post("/register", auth.register);
 router.post("/login", auth.loginWithPassword);
 router.post("/token", auth.checkToken);
+
+router.post(
+  "/upload",
+  multer({ storage: imageStore }).single("file"),
+  image.uploadToImgBB
+);
 
 router.get("/users", user.getListUser);
 router.post("/users", user.createUser);

@@ -8,8 +8,15 @@ class UserController {
     try {
       const { page = 1, size = 10, sort } = req.query;
 
-      if (isNaN(+page) || Array.isArray(page) || isNaN(+size) || Array.isArray(size)) {
-        return res.status(500).json({ msg: "`page` and `size` must be number" });
+      if (
+        isNaN(+page) ||
+        Array.isArray(page) ||
+        isNaN(+size) ||
+        Array.isArray(size)
+      ) {
+        return res
+          .status(500)
+          .json({ msg: "`page` and `size` must be number" });
       }
 
       const searchObject: any[] = [];
@@ -25,20 +32,19 @@ class UserController {
         }
       }
 
-      const users = await User
-        .find()
+      const users = await User.find()
         .sort(sortObject)
-        .skip((+page-1)*+size)
+        .skip((+page - 1) * +size)
         .limit(+size);
 
       const count = await User.count();
-      
+
       res.json({
         content: users,
         page: +page,
         size: +size,
         total: count,
-        totalPage: Math.ceil(count/+size)
+        totalPage: Math.ceil(count / +size),
       });
     } catch (error) {
       console.log("UserController.getListUser error", error);
@@ -97,41 +103,54 @@ class UserController {
       let id = req.params.id;
       const currentUser = await User.findOne({ _id: id });
 
-      const checkExist = await User.findOne({
-        $or: [
-          {
-            $and: [
-              { email: { $ne: currentUser?.email } },
-              { email: req.body.email },
-            ],
-          },
-          {
-            $and: [
-              { username: { $ne: currentUser?.username } },
-              { username: req.body.username },
-            ],
-          },
-        ],
-      });
+      const checkCondition: any[] = [];
 
-      if (checkExist) {
-        return res
-          .status(500)
-          .json({ msg: "username or email must not duplicate!" });
+      if (req.body.username && req.body.username !== currentUser?.username) {
+        checkCondition.push({
+          $and: [
+            { username: { $ne: currentUser?.username } },
+            { username: req.body.username },
+          ],
+        });
       }
 
-      
-      const salt = bcrypt.genSaltSync(SALT_ROUNDS);
-      const hashPassword = bcrypt.hashSync(req.body?.password, salt);
+      if (req.body.email && req.body.email !== currentUser?.email) {
+        checkCondition.push({
+          $and: [
+            { email: { $ne: currentUser?.email } },
+            { email: req.body.email },
+          ],
+        });
+      }
 
-      const userData = {
+      if (checkCondition.length > 0) {
+        const checkExist = await User.findOne({
+          $or: checkCondition,
+        });
+  
+        if (checkExist) {
+          return res
+            .status(500)
+            .json({ errorMessage: "Tên người dùng hoặc email đã tồn tại" });
+        }
+      }
+
+
+      
+
+      const userData: any = {
         username: req.body?.username,
-        password: hashPassword,
         email: req.body?.email,
         name: req.body?.name,
         avatar: req.body?.avatar,
         gender: req.body?.gender === "F" ? "F" : "M",
       };
+
+      if (req.body.password?.length > 0) {
+        const salt = bcrypt.genSaltSync(SALT_ROUNDS);
+        const hashPassword = bcrypt.hashSync(req.body?.password, salt);
+        userData.password = hashPassword;
+      }
 
       await User.updateOne({ _id: id }, userData);
       const user = await User.findOne({ _id: id });

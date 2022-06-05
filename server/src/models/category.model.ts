@@ -10,12 +10,10 @@ const categorySchema = new Schema<ICategory>({
   name: { 
     type: String, 
     required: true, 
-    unique: true,
   },
   description: { 
     type: String, 
-    required: true, 
-    unique: true,
+    required: false, 
   },
   image: { 
     type: String, 

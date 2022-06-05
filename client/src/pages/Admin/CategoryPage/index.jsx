@@ -26,16 +26,19 @@ const AdminCategoryPage = () => {
     if (editDialogStatus === "success") {
       handleFetchList();
     }
+    // eslint-disable-next-line
   }, [editDialogStatus]);
 
   useEffect(() => {
     if (deleteDialogStatus === "success") {
       handleFetchList();
     }
+    // eslint-disable-next-line
   }, [deleteDialogStatus]);
 
   useEffect(() => {
     handleFetchList();
+    // eslint-disable-next-line
   }, [page]);
 
   return (

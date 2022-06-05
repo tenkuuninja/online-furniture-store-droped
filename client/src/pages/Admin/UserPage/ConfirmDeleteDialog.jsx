@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Dialog, Button } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { CategoryApi } from "apis";
+import { UserApi } from "apis";
 
-const CategoryModal = ({ isOpen, onClose, onSuccess, data }) => {
+const ConfirmDeleteDialog = ({ isOpen, onClose, onSuccess, data }) => {
   const [isLoading, setLoading] = useState(false);
 
   const hanldeSubmit = async () => {
     setLoading(true);
     try {
-      await CategoryApi.byId(data?._id).delete();
+      await UserApi.byId(data?._id).delete();
       setLoading(false);
       onSuccess();
     } catch (error) {
@@ -40,4 +40,4 @@ const CategoryModal = ({ isOpen, onClose, onSuccess, data }) => {
   );
 };
 
-export default CategoryModal;
+export default ConfirmDeleteDialog;

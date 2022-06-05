@@ -1,8 +1,8 @@
 import { Fragment } from "react";
-
-// import './App.css';
-import "assets/css/tailwind.css";
 import AppRoutes from "./Routes";
+
+import "assets/css/tailwind.css";
+import "assets/css/style.css";
 
 function App() {
   return (

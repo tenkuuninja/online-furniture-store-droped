@@ -1,11 +1,14 @@
-const { Fragment } = require("react");
-const { Outlet } = require("react-router-dom");
+import { Fragment } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "components/Header";
+import Footer from "components/Footer";
 
 const AppLayout = () => {
   return (
     <Fragment>
-      AppLayout
+      <Header />
       <Outlet />
+      <Footer />
     </Fragment>
   );
 };

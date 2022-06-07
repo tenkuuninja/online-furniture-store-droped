@@ -6,3 +6,11 @@ body {
     sans-serif;
   overflow-x: hidden;
 }
+
+.product__cart:hover img {
+  transform: scale(1.05);
+}
+
+.product__cart:hover img + div {
+  opacity: 0.05;
+}
